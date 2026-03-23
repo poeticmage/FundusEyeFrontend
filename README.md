@@ -1,70 +1,238 @@
-# Getting Started with Create React App
+# What This Repository is about:
+# This repo consists the files I have made to build the frontend of my recent app: refer Glaucoma App. Please visit https://funduseyefrontend12.onrender.com/ to see the app. Beware of cold start though. I have used npx create-react-app to make it. It consists of App.js with following code
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Header from "./Header.js";
+import Body from "./Body.js";
+import Footer from "./Footer.js";
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+function App() {
+  return (<div> <Header/>
+    <Body/>
+    <Footer/></div>
+   
+  );
+}
 
-## Available Scripts
+export default App;
+# and the Header, Body and Footer are as follows:
+# Header
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
-In the project directory, you can run:
+function Header(){
+    return <div className="header"><h1>Refer  Eye  Glaucoma</h1></div>;
 
-### `npm start`
+}
+export default Header;
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+# Body
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Input from "./Input.js";
+import ButtonBars from "./ButtonBars.js";
+import Result from "./Result.js";
+function Body(){
+    const [inp,setInp]=React.useState(null);
+    const handleClose = () => setInp(null);
+    return <div >
+                {!inp?<Input setInp={setInp}/>:null}
+                {!inp?<div className="option"><h3>OR SELECT FROM BELOW</h3></div>:null}
+                {inp?<Result inp={inp} handleClose={handleClose}/>:null}
+                {!inp?<ButtonBars  setInp={setInp}/>:null}
+         </div>;
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+}
+export default Body;
 
-### `npm test`
+# Footer
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+function Footer(){
+    return <div className="footer"><h3>Copyright @ Priyadarshi {new Date().getFullYear()}</h3></div>;
 
-### `npm run build`
+}
+export default Footer;
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Button Bars are just buttons with images of samples of Fundus Images (Medical Images for C-section of eyes), made in case users do not have fundus image to test the app
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Button Bars
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import Parsexin ,{referable,nonReferable} from "./ImageParse";
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+function ButtonBars({setInp}){
+    const setButton = async (imgUrl) => {
+    try {
+      const res = await fetch(imgUrl);      
+      const blob = await res.blob();        
+      const file = new File([blob], "image.png", { type: blob.type }); 
+      setInp(file);                         
+    } catch (e) {
+      console.error("Failed to fetch image", e);
+    }
+  };
+    return <div className="ButtonBars">
+                <div>
+                    <h3>
+                        Referable Fundus
+                    </h3>
+                    {referable.map((img, i) => (
+                        <button key={i} onClick={()=>setButton(img)}>
+                            <img src={img} alt="" width="80"/>
+                        </button>
+                        ))}
 
-### `npm run eject`
+                </div>
+                <div>
+                    <h3>
+                        Non Referable Fundus
+                    </h3>
+                    {nonReferable.map((img, i) => (
+                    <button key={i} onClick={()=>setButton(img)}>
+                        <img src={img} alt="" width="80"/>
+                    </button>
+                    ))}
+                </div>
+        </div>;
+}
+export default ButtonBars;
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+# image parse is :
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+import r1 from "./Referable/EyePACS-DEV-RG-1.jpg";
+import r2 from "./Referable/EyePACS-DEV-RG-10.jpg";
+import r3 from "./Referable/EyePACS-DEV-RG-100.jpg";
+import r4 from "./Referable/EyePACS-DEV-RG-1000.jpg";
+import r5 from "./Referable/EyePACS-DEV-RG-1001.jpg";
+import r6 from "./Referable/EyePACS-DEV-RG-1002.jpg";
+import r7 from "./Referable/EyePACS-DEV-RG-1003.jpg";
+import r8 from "./Referable/EyePACS-DEV-RG-1004.jpg";
+import r9 from "./Referable/EyePACS-DEV-RG-1005.jpg";
+import nr1 from "./Non Referable/EyePACS-DEV-NRG-1.jpg";
+import nr2 from "./Non Referable/EyePACS-DEV-NRG-10.jpg";
+import nr3 from "./Non Referable/EyePACS-DEV-NRG-100.jpg";
+import nr4 from "./Non Referable/EyePACS-DEV-NRG-1000.jpg";
+import nr5 from "./Non Referable/EyePACS-DEV-NRG-1001.jpg";
+import nr6 from "./Non Referable/EyePACS-DEV-NRG-1002.jpg";
+import nr7 from "./Non Referable/EyePACS-DEV-NRG-1003.jpg";
+import nr8 from "./Non Referable/EyePACS-DEV-NRG-1004.jpg";
+import nr9 from "./Non Referable/EyePACS-DEV-NRG-1005.jpg";
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+const referable = [r1,r2,r3,r4,r5,r6,r7,r8,r9];
+const nonReferable = [nr1,nr2,nr3,nr4,nr5,nr6,nr7,nr8,nr9];
 
-## Learn More
+function Parse(){
+    return <div></div>;
+}
+export default Parse;
+export {referable,nonReferable};
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# The input bar in case user has input samples, beware we have a DBSCAN based gating in backend to separate fundus images from non-fundus
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+function Input({setInp}){
+  const inputRef = React.useRef();
+   const handleClick = () => {
+    inputRef.current.click(); 
+  };
+   const handleFile = (e) => {
+    const file = e.target.files[0];
 
-### Code Splitting
+    if (!file) return;
+    if (!file.type.startsWith("image/")) {
+      alert("Only image files allowed.");
+      return;
+    }
+    if (file.size > 50 * 1024 * 1024) {
+      alert("File must be less than 50MB.");
+      return;
+    }
+    
+    setInp(file);
+  };
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+  return (
+    <button onClick={handleClick}>
+  <div className="Input"><h2>Select a Fundus Image from Computer</h2> 
+     <input
+     ref={inputRef}
+      type="file"
+      accept="image/*"
+      onChange={handleFile}
+    /></div>
+    </button>
+   );
 
-### Analyzing the Bundle Size
+}
+export default Input;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# The result page gets unlocked when input from either input bar or button is provided:
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import axios from "axios";
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+function Result({inp,handleClose}){
+    const API="https://image-2-qj7i.onrender.com/image";
+    const [resp,setRes]=React.useState(null);
+    React.useEffect(()=>{
+          console.log("inp received in Result:", inp);
+        if(!inp) return;
+        const send=async()=>{
+            const formdata=new FormData();
+            formdata.append("file",inp);
+            try{
+                const result=await axios.post(API,formdata,{headers: { "Content-Type": "multipart/form-data" }});
+                setRes(result.data);
+            }catch(e){
+                console.error(e);
+            }
+        };
+        send();
+    },[inp]);
 
-### Advanced Configuration
+    const resultshow1=<div><h3>Result: Non-Referable Glaucoma</h3><h4>Patient can be treated in private clinic under guided supervision</h4></div>;
+    const resultshow2=<div><h3>Result: Referable Glaucoma</h3><h4>Immediate Referral to Hospital Required. Intense supervision is necessary.</h4></div>;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+   if(!inp) return null;
+  console.log(resp);
 
-### Deployment
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+    if (resp?.result?.status === "reject") {
+    window.alert("Choose A Fundus Image");
+    handleClose(); 
+    return null; 
+  }
 
-### `npm run build` fails to minify
+    return (
+    <div className="resultbar">
+        <button className="closeButton" onClick={handleClose}><h4>X</h4></button>
+        {resp?( 
+        <div>
+            <img src={`data:image/png;base64,${resp.result.gradcam}`}  className="gradcam-image"></img>
+            {
+                resp.result.prediction===0?resultshow1:resultshow2
+            }
+            <p>Algorithm used: MaxViT Light.</p>
+            <p>Tool used: GradCAM, DBSCAN</p>
+        </div>
+            ):
+        <h4 className="Loading">L O A D I N G...</h4>
+        }
+        
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+    </div>
+    );
+
+}
+
+
+export default Result;
+
+
