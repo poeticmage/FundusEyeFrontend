@@ -1,5 +1,7 @@
 # What This Repository is about:
 # This repo consists the files I have made to build the frontend of my recent app: refer Glaucoma App. Please visit https://funduseyefrontend12.onrender.com/ to see the app. Beware of cold start though. I have used npx create-react-app to make it. It consists of App.js with following code
+
+```
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Header from "./Header.js";
@@ -15,8 +17,10 @@ function App() {
 }
 
 export default App;
+```
 # and the Header, Body and Footer are as follows:
 # Header
+```
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -25,8 +29,10 @@ function Header(){
 
 }
 export default Header;
+```
 
 # Body
+```
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Input from "./Input.js";
@@ -44,8 +50,9 @@ function Body(){
 
 }
 export default Body;
-
+```
 # Footer
+```
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -54,10 +61,11 @@ function Footer(){
 
 }
 export default Footer;
-
+```
 # Button Bars are just buttons with images of samples of Fundus Images (Medical Images for C-section of eyes), made in case users do not have fundus image to test the app
 
 # Button Bars
+```
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import Parsexin ,{referable,nonReferable} from "./ImageParse";
@@ -98,9 +106,9 @@ function ButtonBars({setInp}){
         </div>;
 }
 export default ButtonBars;
-
+```
 # image parse is :
-
+```
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -131,8 +139,9 @@ function Parse(){
 }
 export default Parse;
 export {referable,nonReferable};
-
+```
 # The input bar in case user has input samples, beware we have a DBSCAN based gating in backend to separate fundus images from non-fundus
+```
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -171,8 +180,9 @@ function Input({setInp}){
 
 }
 export default Input;
-
+```
 # The result page gets unlocked when input from either input bar or button is provided:
+```
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import axios from "axios";
