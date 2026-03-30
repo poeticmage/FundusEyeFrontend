@@ -3,7 +3,7 @@
   "proxy": "https://image-2-qj7i.onrender.com",
   "version": "0.1.0",
   "engines": {
-    "node": "18.x"
+    "node": "24.x"
   },
   "private": true,
   "dependencies": {
