@@ -5,7 +5,7 @@ import axios from "axios";
 //https://image-ewt313hia-priyadarshi-mukhopadhyays-projects.vercel.app/
 //https://image-2-qj7i.onrender.com/image
 function Result({inp,handleClose}){
-    const API="https://image-ewt313hia-priyadarshi-mukhopadhyays-projects.vercel.app/";
+    const API="https://image-2-qj7i.onrender.com/image";
     const [resp,setRes]=React.useState(null);
     React.useEffect(()=>{
           console.log("inp received in Result:", inp);
