@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import axios from "axios";
 
+
 function Result({inp,handleClose}){
     const API="https://image-2-qj7i.onrender.com/image";
     const [resp,setRes]=React.useState(null);
